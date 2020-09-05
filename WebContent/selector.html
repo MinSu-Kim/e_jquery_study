@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>jQuery test</title>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(function(){
+    $('#list img.gihyo').animate({width:140, height:200}, 3000);
+
+
+    $('#add').on("click", function(){
+        $('<option></option>')
+        .attr('value', 'js_master')
+        .text('JavaScript본격입문')
+        .css('background-color', '#FFff00')
+        .appendTo('#books');
+    });
+    
+    $('#change').on("click", function(){
+        $('#books').
+        find('option.apache').css('backgroundColor', '#ffff00').end().
+        find('option.php').css('backgroundColor', '#66ccff').end().
+        find('option.mysql').css('backgroundColor', '#ccffcc');
+    });
+
+});
+</script>
+</head>
+<body>
+    <select id="books">
+        <option value="apache" class="apache">Apache 포켓 레퍼런스</option>
+        <option value="mysql" class="mysql">3단계로 확실히 배우는 MySQL 입문</option>
+        <option value="php" class="php">개정 3판 기초 PHP</option>
+        <option value="vs" class="vs">Visual Studio 2010 스타트 업 가이드</option>
+    </select>
+    <button id="add">추가</button>
+    <button id="change">색변경</button>
+    <div id="list">
+        <table border="0">
+            <tr>
+                <td>
+                    <img src="http://image.kyobobook.co.kr/images/book/large/949/l9791187370949.jpg" height="150" width="108" />
+                </td>
+                <td>
+                    <img src="http://image.kyobobook.co.kr/images/book/large/178/l9791158392178.jpg" height="150" width="108" class="gihyo" />
+                </td>
+                <td>
+                    <img src="http://image.kyobobook.co.kr/images/book/large/846/l9788988474846.jpg" height="150" width="108" />
+                </td>
+                <td>
+                    <img src="http://image.kyobobook.co.kr/images/book/large/210/l9791186710210.jpg" height="150" width="108" class="gihyo" />
+                </td>
+                <td>
+                    <img src="http://image.kyobobook.co.kr/images/book/large/791/l9788970506791.jpg" height="150" width="108" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
