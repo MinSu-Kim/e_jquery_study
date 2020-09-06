@@ -61,19 +61,19 @@ $(function() {
 		//입력한 비밀번호를 갖고 memberCheck.jsp페이지 실행 
 		$.ajax({
 			type: "post",
-			url: "memberCheck.jsp",
+			url: "memberCheck.do",
 			data: query,
 			success: function(data){
 				if(data == 1){//비밀번호 맞음
 					//회원탈퇴 페이지 deletePro.jsp 실행
 					$.ajax({
 						   type: "POST",
-						   url: "deletePro.jsp",
+						   url: "deleteMember.do",
 						   data: query,
 						   success: function(data){
 							   if(data == 1){//탈퇴 성공
 								  alert("회원 탈퇴가 되었습니다.");
-								  $("#main_auth").load("loginForm.jsp");
+								  $("#main_auth").load("login/loginForm.jsp");
 						       }   
 						   }
 				    });

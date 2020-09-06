@@ -26,4 +26,8 @@ public class JoinService {
     public int modifyEmployee(Employee emp) {
         return dao.updateEmployee(emp);
     }
+    
+    public int removeEmployee(Employee emp) {
+        return dao.deleteEmployee(emp);
+    }
 }

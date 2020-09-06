@@ -12,4 +12,6 @@ public interface EmployeeDao {
     Employee selectEmployeeByEmail(Employee emp);
     
     int updateEmployee(Employee emp);
+    
+    int deleteEmployee(Employee emp);
 }

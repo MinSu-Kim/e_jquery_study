@@ -54,7 +54,7 @@ $(function() {
 		      data:JSON.stringify(query),
 		      dataType:"json",
 		      success:function(data){
-		          if (data == 1) {// 사용할 수 없는 아이디
+		          if (data == 1) {// 
 		              window.location.replace("main.jsp");
                   } else if (data == 0) {
                         alert("가입 실패");

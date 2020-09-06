@@ -128,4 +128,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
         }
     }
 
+    @Override
+    public int deleteEmployee(Employee emp) {
+        String sql = "DELETE FROM EMPLOYEE WHERE EMAIL = ?";
+        try(Connection con = HikariCPListener.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql)){
+            pstmt.setString(1, emp.getEmail());
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new CustomSQLException(e);
+        }
+    }
+
 }
