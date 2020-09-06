@@ -10,4 +10,6 @@ public interface EmployeeDao {
     int loginEmployee(Employee emp);
     
     Employee selectEmployeeByEmail(Employee emp);
+    
+    int updateEmployee(Employee emp);
 }

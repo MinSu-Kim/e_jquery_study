@@ -42,7 +42,6 @@ public class RegisterEmpServlet extends HttpServlet {
         Employee newEmp = gson.fromJson(new InputStreamReader(request.getInputStream()), Employee.class);
         System.out.println(newEmp);
         int res = service.joinEmployee(newEmp);
-        
         response.setContentType("text/plain");
        
         PrintWriter pw = response.getWriter();

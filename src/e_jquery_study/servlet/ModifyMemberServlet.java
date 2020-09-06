@@ -1,6 +1,7 @@
 package e_jquery_study.servlet;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
@@ -8,13 +9,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
 
 import e_jquery_study.dto.Employee;
 import e_jquery_study.service.JoinService;
 
-@WebServlet("/memberCheck.do")
-public class MemberCheckServlet extends HttpServlet {
+@WebServlet("/modifyMember.do")
+public class ModifyMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private JoinService service;
     
@@ -24,34 +26,25 @@ public class MemberCheckServlet extends HttpServlet {
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    process(request, response); 
+	    process(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    process(request, response);     
+	    process(request, response);
 	}
 
-    private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        HttpSession session = request.getSession();
-        String email = (String) session.getAttribute("email");
-        String passwd = request.getParameter("passwd");
+	    Gson gson = new Gson();
+
+        Employee emp = gson.fromJson(new InputStreamReader(request.getInputStream()), Employee.class);
+        System.out.println(emp);
+        int res = service.modifyEmployee(emp);
         
-        System.out.println("email : " + email + " passwd : " + passwd);
-        
-        Employee emp = new Employee(email);
-        emp.setPasswd(passwd);
-        
-        Employee getEmp = service.selectEmployeeByEmail(emp);
-        System.out.println("getEmp : " + getEmp);
-        
-        session.setAttribute("emp", getEmp);
-        
-        int res = getEmp == null ? 0 : 1;
-        System.out.println("res : " + res);
+        response.setContentType("text/plain");
+       
         PrintWriter pw = response.getWriter();
         pw.print(res);
         pw.flush();
     }
-	
 }

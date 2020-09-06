@@ -22,4 +22,8 @@ public class JoinService {
     public Employee selectEmployeeByEmail(Employee emp) {
         return dao.selectEmployeeByEmail(emp);
     }
+    
+    public int modifyEmployee(Employee emp) {
+        return dao.updateEmployee(emp);
+    }
 }

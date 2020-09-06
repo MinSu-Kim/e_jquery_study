@@ -108,4 +108,24 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return new Employee(empNo, empName, title, manager, salary, dept, email, regDate, tel);
     }
 
+    @Override
+    public int updateEmployee(Employee emp) {
+        String sql =   "UPDATE EMPLOYEE"
+                     + "   SET TNO=?, MANAGER=?, SALARY=?, DNO=?, PASSWD=?, TEL=?"
+                     + " WHERE EMAIL=?";
+        try(Connection con = HikariCPListener.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql)){
+            pstmt.setInt(1, emp.getTitle().getTitleNo());
+            pstmt.setInt(2, emp.getManager().getEmpNo());
+            pstmt.setInt(3, emp.getSalary());
+            pstmt.setInt(4, emp.getDept().getDeptNo());
+            pstmt.setString(5, emp.getPasswd());
+            pstmt.setString(6, emp.getTel());
+            pstmt.setString(7, emp.getEmail());
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new CustomSQLException(e);
+        }
+    }
+
 }
