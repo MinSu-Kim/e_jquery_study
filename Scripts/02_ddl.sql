@@ -41,9 +41,36 @@ CREATE TABLE EMPLOYEE (
 );
 
 
+--------------------------------------------------------------
+CREATE TABLE BOARD(
+    NUM    NUMBER NOT NULL PRIMARY KEY, -- 글번호
+    WRITER VARCHAR2(50) NOT NULL,       -- 글쓴이
+    SUBJECT VARCHAR2(50) NOT NULL,      -- 글제목
+    PASSWD VARCHAR2(60) NOT NULL,       -- 글의 비밀번호
+    REGDATE DATE NOT NULL,              -- 글 쓴 날짜
+    READCOUNT NUMBER DEFAULT 0,         -- 글 조회수
+    REF NUMBER NOT NULL,                -- 글을 그룹화하기위한 필드 제목글과 그에 딸린 답변글이 그룹화
+    RE_STEP NUMBER NOT NULL,            -- 제목글과 답변글의 순서를 정리하기 위한 필드
+    RE_LEVEL NUMBER NOT  NULL,          -- 글의 레벨을 저장하는 필드
+    CONTENT CLOB NOT NULL,              -- 글내용
+    IP VARCHAR2(30) NOT NULL            -- 글쓴이의 IP주소
+);
 
+DROP SEQUENCE AUTO_BOARD_SEQ;
 
+CREATE SEQUENCE AUTO_BOARD_SEQ
+    START WITH 1
+    INCREMENT BY 1;
 
+CREATE OR REPLACE TRIGGER TRI_BOARD_AUTOSEQ
+    BEFORE INSERT 
+    ON BOARD
+    FOR EACH ROW 
+BEGIN 
+    IF INSERTING AND :NEW.BNO IS NULL THEN 
+        SELECT AUTO_BOARD_SEQ.NEXTVAL INTO :NEW.BNO FROM DUAL;
+    END IF;
+END;
 
 
 
